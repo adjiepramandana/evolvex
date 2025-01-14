@@ -188,7 +188,7 @@ input:checked + .slider:before {
 
 .image-button img {
   display: block; /* Menghilangkan margin bawaan gambar */
-  max-width: 100%; /* Menjaga ukuran gambar responsif */
+  max-width: 70%; /* Menjaga ukuran gambar responsif */
   height: auto; /* Menjaga proporsi gambar */
 }
 
@@ -222,6 +222,16 @@ input:checked + .slider:before {
                   <i class="fas fa-sync-alt"></i>
                 </button>
               </div>
+              <div>
+                <span class="status-icon">🚨</span>
+                <span class="info-title">Alarm :</span>
+                <span id="alarm" class="info-text status-offline"></span>
+                <button onclick="toggleAlarm();" id="berus" class="btn btn-outline-light btn-sm ms-2" 
+                style="padding: 2px 6px; font-size: 20px;" title="Toggle Alarm">
+          🤫
+        </button>
+        
+              </div>
           </div>
         </div>
       </div>
@@ -234,7 +244,7 @@ input:checked + .slider:before {
     </label>
     <br>
     <br>
-    <button onclick='toggleLampu("v1");' type="button" class="image-button">
+    <button id="lampu" onclick='toggleLampu("v1");' type="button" class="image-button">
       <img id="eris" src="https://hosting.tigerengine.id/l5o9ty.png" alt="Button Image">
     </button>
     
