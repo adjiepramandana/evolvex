@@ -1,5 +1,6 @@
-var auth = "-Q5uMi-QHnvEVeL8745C1JXZb6EUeKWt";
+var auth = "gogikUsvBxN_YQi28eo9ua33U1L94Pux";
 let stateLampu;
+let stateAlarm;
 
 function cekMode(auth) {
     $.ajax({
@@ -8,10 +9,13 @@ function cekMode(auth) {
         dataType: "text",
         success: function(data) {
             if (data == 1) {
+                $("#lampu").prop('disabled', false);
                 $("#mode").html("Automated");
                 $("#toggleSwitch").prop("checked", true); // Set switch to checked
             } else {
+                updateData("v2", 0);
                 updateData("v1", 0);
+                $("#lampu").prop('disabled', true);
                 $("#mode").html("Manual");
                 $("#toggleSwitch").prop("checked", false); // Set switch to unchecked
             }
@@ -81,11 +85,43 @@ function cekLampu(id){
     });
 }
 
+function cekAlarm(id){
+    $.ajax({
+        url: "https://blynk.cloud/external/api/get?token=" + auth + "&dataStreamId=" + id,
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                stateAlarm = 1;
+                $("#alarm").html("🟢 Siaga");
+                $("#alarm").css("color", "#66BB6A");
+                $("#berus").html("🤫");
+            } else {
+                stateAlarm = 0;
+                $("#alarm").html("🔴 Off");
+                $("#alarm").css("color", "#FF0000");
+                $("#berus").html("📢❗🚨");
+            }
+        },
+        error: function() {
+            alert("Failed to fetch alarm data.");
+        }
+    });
+}
+
 function toggleLampu(pin){
     if (stateLampu == 1) {
         updateData("v1", 0);
     } else {
         updateData("v1", 1);
+    }
+}
+
+function toggleAlarm(pin){
+    if (stateAlarm == 1) {
+        updateData("v2", 0);
+    } else {
+        updateData("v2", 1);
     }
 }
 
@@ -96,6 +132,7 @@ $(document).ready(function() {
         cekKonek(auth);      // Check connection status
         cekMode(auth);
         cekLampu(2);          // Check mode 
+        cekAlarm(3);          // Check alarm
         $("#djload").hide(); // Hide loading icon
     }, 1000);
 
@@ -103,6 +140,7 @@ $(document).ready(function() {
     setInterval(() => {
         cekMode(auth);
         cekLampu(2);
+        cekAlarm(3);
     }, 500); // Check every 5 seconds
 
 });
