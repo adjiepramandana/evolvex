@@ -1,4 +1,4 @@
-var auth = "gogikUsvBxN_YQi28eo9ua33U1L94Pux";
+var auth = "30Ya-Kl90xsa8AOR4raaEiBzmYruMgNX";
 let stateLampu;
 let stateAlarm;
 
