@@ -113,10 +113,8 @@ function toggleLampu(pin){
     const lamp = document.getElementById('lamp');
     if (stateLampu == 1) {
         updateData("v1", 0);
-        lamp.classList.remove('on'); // Matikan lampu
     } else {
         updateData("v1", 1);
-        lamp.classList.add('on'); // Hidupkan lampu
     }
 }
 
