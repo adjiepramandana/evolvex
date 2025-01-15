@@ -195,21 +195,6 @@ input:checked + .slider:before {
   height: auto; /* Menjaga proporsi gambar */
 }
 
-.lamp {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #555; /* Warna mati */
-            box-shadow: 0 0 10px 0 #000;
-            transition: background 0.5s, box-shadow 0.5s;
-        }
-
-        .lamp.on {
-            background: #f5d142; /* Warna hidup */
-            box-shadow: 0 0 30px 10px #f5d142;
-        }
-
-
     </style>
   </head>
   <body>
@@ -261,9 +246,6 @@ input:checked + .slider:before {
     </label>
     <br>
     <br>
-    <div id="lamp-container">
-      <div id="lamp" class="lamp"></div>
-  </div>
     <button id="lampu" onclick='toggleLampu("v1");' type="button" class="image-button">
       <img id="eris" src="https://hosting.tigerengine.id/l5o9ty.png" alt="Button Image">
     </button>
