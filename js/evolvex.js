@@ -1,4 +1,4 @@
-var auth = "30Ya-Kl90xsa8AOR4raaEiBzmYruMgNX";
+var auth = "gA9nrlQ29AX5kYzokcru9UdTYfHaX4D6";
 let stateLampu;
 let stateAlarm;
 
@@ -110,10 +110,13 @@ function cekAlarm(id){
 }
 
 function toggleLampu(pin){
+    const lamp = document.getElementById('lamp');
     if (stateLampu == 1) {
         updateData("v1", 0);
+        lamp.classList.remove('on'); // Matikan lampu
     } else {
         updateData("v1", 1);
+        lamp.classList.add('on'); // Hidupkan lampu
     }
 }
 
