@@ -128,22 +128,61 @@ function toggleAlarm(pin){
 
 
 $(document).ready(function() {
-    $("#djload").show(); // Show loading icon
-    setTimeout(function() {
-        cekKonek(auth);      // Check connection status
-        cekMode(auth);
-        cekLampu(2);          // Check mode 
-        cekAlarm(3);          // Check alarm
-        $("#djload").hide(); // Hide loading icon
-    }, 1000);
-
-    // Set interval to keep checking connection and mode
-    setInterval(() => {
-        cekMode(auth);
-        cekLampu(2);
-        cekAlarm(3);
-    }, 500); // Check every 5 seconds
-
+    Swal.fire({
+        title: 'Masukkan Token',
+        input: 'text',
+        inputLabel: 'Token Anda',
+        inputPlaceholder: 'Masukkan token di sini...',
+        confirmButtonText: 'Kirim',
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        inputValidator: (value) => {
+          if (!value) {
+            return 'Token tidak boleh kosong!';
+          }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const token = result.value;
+          if (token == "evolvex") {
+                sessionStorage.setItem("token", token);
+          }else{
+            Swal.fire({
+                title: 'Token Salah',
+                text: 'Token yang anda masukkan salah',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              }).then(() => {
+                window.location.reload(); // Refresh halaman setelah klik OK
+              });
+          }
+          if (sessionStorage.getItem(token) != "") {
+            setTimeout(function() {
+                cekKonek(auth);      // Check connection status
+                cekMode(auth);
+                cekLampu(2);          // Check mode 
+                cekAlarm(3);          // Check alarm
+                $("#djload").hide(); // Hide loading icon
+            }, 1000);
+        
+            // Set interval to keep checking connection and mode
+            setInterval(() => {
+                cekMode(auth);
+                cekLampu(2);
+                cekAlarm(3);
+            }, 500); // Check every 5 seconds
+          }
+        } else {
+            Swal.fire({
+                title: 'Dibatalkan',
+                text: 'Anda membatalkan pengisian token.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              }).then(() => {
+                window.location.reload(); // Refresh halaman setelah klik OK
+              });
+        }
+      });
 });
 
 function refresh() {
